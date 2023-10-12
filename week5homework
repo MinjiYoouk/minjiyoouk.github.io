@@ -1,0 +1,49 @@
+function setup() {
+  createCanvas(600, 600);
+  angleMode(DEGREES);
+  noFill();
+  stroke(255); // Set stroke color to white
+  strokeWeight(15); // Increase stroke weight for thicker lines
+}
+
+function draw() {
+  background(0); // Set background color to black
+  translate(width / 2, height / 2);
+  fill(0);
+
+  let hr = hour() % 12; // 12-hour format
+  let min = minute();
+  let sec = second();
+
+  // Calculate angles for each time unit
+  let secAngle = map(sec, 0, 60, 0, 360);
+  let minAngle = map(min, 0, 60, 0, 360);
+  let hrAngle = map(hr, 0, 12, 0, 360);
+
+  // Draw the polar clock segments
+  stroke(0, 0, 255); // Blue for hours
+  arc(0, 0, 200, 200, -90, hrAngle - 90);
+
+  
+  stroke(0, 255, 0); // Green for minutes
+  arc(0, 0, 150, 150, -90, minAngle - 90);
+
+  
+  stroke(255, 105, 180); // Pink for seconds (RGB for pink)
+  arc(0, 0, 100, 100, -90, secAngle - 90);
+
+
+  
+    // Remove outline for the numeral clock
+  noStroke();
+  
+    // Display the current time at the bottom of the screen
+  textSize(50);
+  fill(255);
+  textAlign(CENTER, BOTTOM);
+  text(
+    nf(hour(), 2) + ':' + nf(minute(), 2) + ':' + nf(second(), 2),
+    0,
+    260
+  );
+}
