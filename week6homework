@@ -1,0 +1,75 @@
+function setup() {
+  createCanvas(600, 750);
+  background(255);
+}
+
+function draw() {
+  background(220);
+
+  // Draw the fox
+  drawFox(300, 300, 100);
+}
+
+function drawFox(x, y, s) {
+  
+    // Tails (making them more jagged and uneven)
+  let tailLength = s * 1.5;
+  let tailWidth = s * 0.3;
+  let startingAngle = PI / 3;
+  let angleGap = PI / 15;
+  
+  for (let i = 0; i < 9; i++) {
+    drawTail(x, y + s * 0.9, tailLength, tailWidth, startingAngle + i * angleGap + random(0.9, 1.1));
+  
+  // Body
+  fill(255, 255, 255); 
+  ellipse(x, y + s * 0.75, s, s * 1.5);
+
+  // Ears
+  fill(255, 255, 255);
+  triangle(x - s * 0.5, y - s * 0.5, x - s * 0.5, y - s, x - s * 0.1, y - s * 0.5);
+  triangle(x + s * 0.5, y - s * 0.5, x + s * 0.5, y - s, x + s * 0.1, y - s * 0.5);
+  
+  // Head
+  // Head (Inverted Triangle)
+  fill(255, 255, 255);
+  triangle(x, y + s * 0.25, x - s * 0.65, y - s * 0.65, x + s * 0.65, y - s * 0.65);
+
+  // Eyes
+  fill(150, 0, 0);
+  ellipse(x - s * 0.2, y - s * 0.2, s * 0.15);
+  ellipse(x + s * 0.2, y - s * 0.2, s * 0.15);
+
+  // Snout
+  fill(0);
+  ellipse(x, y, s * 0.12);
+
+    // Whiskers
+  strokeWeight(2);
+    
+  // Left whiskers
+  line(x - s * 0.3, y - s * 0.1, x - s * 0.5, y - s * 0.15);
+  line(x - s * 0.3, y, x - s * 0.5, y);
+  line(x - s * 0.3, y + s * 0.1, x - s * 0.5, y + s * 0.15);
+    
+  // Right whiskers
+  line(x + s * 0.3, y - s * 0.1, x + s * 0.5, y - s * 0.15);
+  line(x + s * 0.3, y, x + s * 0.5, y);
+  line(x + s * 0.3, y + s * 0.1, x + s * 0.5, y + s * 0.15);
+
+
+  }
+}
+
+function drawTail(x, y, length, width, angle) {
+  fill(255, 255, 255); 
+  beginShape();
+  vertex(x, y);
+  bezierVertex(x - cos(angle) * width, y + sin(angle) * width,
+               x - cos(angle) * (length - width), y + sin(angle) * (length - width),
+               x - cos(angle) * length, y + sin(angle) * length);
+  bezierVertex(x - cos(angle + PI / 10) * (length - width) + random(-5, 5), y + sin(angle + PI / 10) * (length - width) + random(-5, 5),
+               x - cos(angle + PI / 15) * width, y + sin(angle + PI / 15) * width,
+               x, y);
+  endShape();
+}
